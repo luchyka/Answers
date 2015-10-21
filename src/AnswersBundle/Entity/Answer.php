@@ -5,13 +5,13 @@ namespace AnswersBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Comment
+ * Answer
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="AnswersBundle\Entity\CommentRepository")
+ * @ORM\Entity(repositoryClass="AnswersBundle\Entity\AnswerRepository")
  * @ORM\HasLifecycleCallbacks()
  */
-class Comment
+class Answer
 {
     /**
      * @var integer
@@ -25,16 +25,37 @@ class Comment
     /**
      * @var string
      *
-     * @ORM\Column(name="text", type="text")
+     * @ORM\Column(name="title", type="string", length=255)
      */
-    private $text;
+    private $title;
 
     /**
-     * @var integer
-     * @ORM\ManyToOne(targetEntity="Answer", inversedBy="comments")
-     * @ORM\Column(name="answer_id", type="integer")
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=255)
      */
-    private $answer;
+    private $description;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="content_html", type="text")
+     */
+    private $contentHTML;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="content_markdown", type="text")
+     */
+    private $contentMarkdown;
+
+    /**
+     * @var array
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="answer")
+     * @ORM\Column(name="comments", type="simple_array")
+     */
+    private $comments;
 
     /**
      * @var array
@@ -83,51 +104,123 @@ class Comment
     }
 
     /**
-     * Set text
+     * Set title
      *
-     * @param string $text
+     * @param string $title
      *
-     * @return Comment
+     * @return Answer
      */
-    public function setText($text)
+    public function setTitle($title)
     {
-        $this->text = $text;
+        $this->title = $title;
 
         return $this;
     }
 
     /**
-     * Get text
+     * Get title
      *
      * @return string
      */
-    public function getText()
+    public function getTitle()
     {
-        return $this->text;
+        return $this->title;
     }
 
     /**
-     * Set answer
+     * Set description
      *
-     * @param integer $answer
+     * @param string $description
      *
-     * @return Comment
+     * @return Answer
      */
-    public function setAnswer($answer)
+    public function setDescription($description)
     {
-        $this->answer = $answer;
+        $this->description = $description;
 
         return $this;
     }
 
     /**
-     * Get answer
+     * Get description
      *
-     * @return integer
+     * @return string
      */
-    public function getAnswer()
+    public function getDescription()
     {
-        return $this->answer;
+        return $this->description;
+    }
+
+    /**
+     * Set contentHTML
+     *
+     * @param string $contentHTML
+     *
+     * @return Answer
+     */
+    public function setContentHTML($contentHTML)
+    {
+        $this->contentHTML = $contentHTML;
+
+        return $this;
+    }
+
+    /**
+     * Get contentHTML
+     *
+     * @return string
+     */
+    public function getContentHTML()
+    {
+        return $this->contentHTML;
+    }
+
+    /**
+     * Set contentMarkdown
+     *
+     * @param string $contentMarkdown
+     *
+     * @return Answer
+     */
+    public function setContentMarkdown($contentMarkdown)
+    {
+        $this->contentMarkdown = $contentMarkdown;
+
+        return $this;
+    }
+
+    /**
+     * Get contentMarkdown
+     *
+     * @return string
+     */
+    public function getContentMarkdown()
+    {
+        return $this->contentMarkdown;
+    }
+
+    /**
+     * Set comments
+     *
+     * @param array $comments
+     *
+     * @return Answer
+     */
+    public function setComments($comments)
+    {
+        $this->comments = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Get comments
+     *
+     * @return array
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 
     /**
@@ -135,7 +228,7 @@ class Comment
      *
      * @param array $attachments
      *
-     * @return Comment
+     * @return Answer
      */
     public function setAttachments($attachments)
     {
@@ -159,7 +252,7 @@ class Comment
      *
      * @param string $createdBy
      *
-     * @return Comment
+     * @return Answer
      */
     public function setCreatedBy($createdBy)
     {
@@ -181,7 +274,7 @@ class Comment
     /**
      * Set createdAt
      *
-     * @return Comment
+     * @return Answer
      * @ORM\PrePersist
      */
     public function setCreatedAt() {
@@ -206,7 +299,7 @@ class Comment
      *
      * @param string $updatedBy
      *
-     * @return Comment
+     * @return Answer
      */
     public function setUpdatedBy($updatedBy)
     {
@@ -228,7 +321,7 @@ class Comment
     /**
      * Set updatedAt
      *
-     * @return Comment
+     * @return Answer
      * @ORM\PreUpdate
      */
     public function setUpdatedAt() {

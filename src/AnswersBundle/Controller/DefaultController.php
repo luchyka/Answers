@@ -9,7 +9,7 @@ class DefaultController extends Controller
     /**
      * Create new Question and Answer
      */
-    public function newQAAction($question, $answer)
+    public function newAnswer($title, $answer)
     {
         $qa = new QA();
         $qa->setTitle($question);
