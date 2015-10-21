@@ -1,0 +1,3 @@
+answers:
+    resource: "@AnswersBundle/Resources/config/routing.yml"
+    prefix:   /

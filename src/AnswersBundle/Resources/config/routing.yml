@@ -1,0 +1,3 @@
+answers_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: AnswersBundle:Default:index }
