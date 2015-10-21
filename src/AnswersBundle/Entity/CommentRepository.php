@@ -10,4 +10,18 @@ namespace AnswersBundle\Entity;
  */
 class CommentRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * Show Comment Attachments
+     * @param $id
+     * @return mixed
+     */
+    public function showCommentAttachments($id) {
+        $comment = $this->getDoctrine()
+            ->getRepository("AnswersBundle:Comment")
+            ->find($id);
+
+        $attachments = $comment->getAttachments();
+
+        return $attachments;
+    }
 }

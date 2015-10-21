@@ -10,11 +10,30 @@ namespace AnswersBundle\Entity;
  */
 class AnswerRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function findAllOrderedById() {
+    /**
+     * List All Answers Ordered By ID Ascending
+     * @return array
+     */
+    public function findAnswersOrderedById() {
         return $this->getEntityManager()
             ->createQuery(
                 'SELECT a FROM AnswersBundle:Answer a ORDER BY a.id ASC'
             )
             ->getResult();
+    }
+
+    /**
+     * Show Answer Attachments
+     * @param $id
+     * @return mixed
+     */
+    public function showAnswerAttachments($id) {
+        $answer = $this->getDoctrine()
+            ->getRepository("AnswersBundle:Answer")
+            ->find($id);
+
+        $attachments = $answer->getAttachments();
+
+        return $attachments;
     }
 }
